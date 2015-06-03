@@ -148,8 +148,6 @@ int main(int argc, char** argv){
 	//start processing argv[1]=input argv[2]=output
 	soler_guass(in,out);
 	//The following worked bad! It is not pure black for outside region!
-	work_fill_nonblack(out,out);
-    //To be implemented...
-
+	//work_fill_nonblack(out,out);
 	return 0;
 }
