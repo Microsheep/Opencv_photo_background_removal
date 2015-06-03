@@ -4,5 +4,3 @@ cmake_install.cmake
 *.png
 Makefile
 *.out
-
-
