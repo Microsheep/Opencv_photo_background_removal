@@ -1,9 +1,9 @@
 #include "cmat.hpp"
 int main(){
-	CMat me;
-	me.set_in_file_path("girl.png");
-	me.set_out_file_path("girl_end.png");
-	me.process();
+	CMat me2;
+	me2.set_in_file_path("24.png");
+	me2.set_out_file_path("24_out.png");
+	me2.process();
 	return 0;
 }
 

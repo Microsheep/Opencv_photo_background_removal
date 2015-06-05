@@ -11,6 +11,7 @@ class CMat{
 		Mat pic;
 		string in_file_path;
 		string out_file_path;
+		void change_channels_24_32();
 	public:
 		CMat();
 		CMat(const CMat& rhs);
