@@ -48,7 +48,6 @@ class CMat{
 //		void soble_3();
 
 		void process();
-		
 };
 
 #endif
