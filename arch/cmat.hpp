@@ -23,6 +23,8 @@ class CMat{
 		bool empty() const ;
 		void clear();
 		
+		int channels();
+		void change_channels(int from, int to);
 
 		void open();
 //		void open8();

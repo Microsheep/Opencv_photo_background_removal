@@ -18,6 +18,9 @@ void CMat::set_in_file_path(string _string){
 void CMat::set_out_file_path(string _string){
 	out_file_path = _string;
 }
+int CMat::channels(){
+	return pic.channels();
+}
 /* about open */
 void CMat::open(){
 	pic = imread(in_file_path.c_str(), -1);
@@ -34,6 +37,7 @@ void CMat::close(){
 }
 void CMat::process(){
 	open();
-	save();
+//	save();
+	std::cout << channels() << std::endl;
 	close();
 }
