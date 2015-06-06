@@ -2,6 +2,7 @@
 #define CMAT_H
 #include <opencv2/opencv.hpp>
 #include <iostream>
+#include <queue>
 #include <string>
 using namespace cv;
 using namespace std;
@@ -38,19 +39,27 @@ class CMat{
 //		void save32();
 		
 		void close();
-
-
+		
+		void guass();
 //		void guass_1();
 //		void guass_2();
 //		void guass_3();
 
+		void soble();
 //		void soble_1();
 //		void soble_2();
 //		void soble_3();
+
+		void black_white(int threshold);
+		void lonely(int white, int black);
+		
+		vector<pair<int, int> > flood(vector<pair<int, int> > source);
 		
 		void kill_pos_color(vector<pair<int, int> > pos);	//col, row
 
 		void process();
+
+		void print();
 };
 
 #endif
