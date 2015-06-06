@@ -46,20 +46,37 @@ void CMat::change_channels(int from, int to){
 void CMat::open(){
 	pic = imread(in_file_path.c_str(), -1);
 }
+void CMat::open32(){
+	open();
+	if(channels() == 3)
+		change_channels_24_32();
+}
 /* about save */
 void CMat::save(){
-	if(!empty())
+	cout << "Save" << endl;
+	if(!empty()){
 		imwrite(out_file_path, pic);
+	} else {
+		cout << "GG" << endl;
+	}
 }
 /* about close */
 void CMat::close(){
 	if(!empty())
 		pic.release();
 }
+/* kill color */
+void CMat::kill_pos_color(vector<pair<int, int> > pos){
+	for(int i = 0 ; i < (int)pos.size() ; i++){
+		pic.at<Vec4b>(Point(pos[i].first,pos[i].second))[3] = 0;
+	}
+}
 void CMat::process(){
-	open();
-	change_channels(24, 32);
+	open32();
+	vector<pair<int, int> > vec;
+	for(int i = 0 ; i < pic.cols ; i++)
+		vec.push_back(pair<int, int>(i, 0));
+	kill_pos_color(vec);
 	save();
-	std::cout << channels() << std::endl;
 	close();
 }

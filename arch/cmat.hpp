@@ -30,7 +30,7 @@ class CMat{
 		void open();
 //		void open8();
 //		void open24();
-//		void open32();
+		void open32();
 
 		void save();
 //		void save8();
@@ -47,6 +47,8 @@ class CMat{
 //		void soble_1();
 //		void soble_2();
 //		void soble_3();
+		
+		void kill_pos_color(vector<pair<int, int> > pos);	//col, row
 
 		void process();
 };
