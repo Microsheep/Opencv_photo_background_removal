@@ -4,23 +4,6 @@ using namespace std;
 using namespace cv;
 
 //定義rgb_point
-class rgb_num{
-public:
-	rgb_num(){
-		r=255;g=255;b=255;
-	}
-	rgb_num(int rin, int gin, int bin){
-		r=rin;g=gin;b=bin;
-	}
-	void setrgb(int rin, int gin, int bin){
-		r=rin;g=gin;b=bin;
-	}
-	int getr(){return r;}
-	int getg(){return g;}
-	int getb(){return b;}
-private:
-	int r,g,b;
-};
 
 //產生邊框 (24bit->8bit)
 void soler_guass(char* input_image_name, char* output_image_name){
@@ -42,48 +25,6 @@ void soler_guass(char* input_image_name, char* output_image_name){
 	return;
 }
 
-//(24bit->32bit)
-void init24to32(char* input_image_name, char* output_image_name){
-	Mat in = imread(input_image_name, -1);
-	Mat out(in.rows, in.cols, CV_8UC4);
-	for(int yy=0;yy<in.rows;yy++){
-		for(int xx=0;xx<in.cols;xx++){
-			Vec3b color = in.at<Vec3b>(Point(xx,yy));
-			Vec4b newcolor;
-			newcolor[0]=color[0];
-			newcolor[1]=color[1];
-			newcolor[2]=color[2];
-			newcolor[3]=255;
-			out.at<Vec4b>(Point(xx,yy))=newcolor;
-		}
-	}
-	imwrite(output_image_name, out);
-	return;
-}
-
-//去除特定顏色
-//x,y,z被去除的顏色
-void killcolor(Mat& in, Mat& out, rgb_num x){
-	for(int yy=0;yy<in.rows;yy++){
-		for(int xx=0;xx<in.cols;xx++){
-			Vec4b color = in.at<Vec4b>(Point(xx,yy));
-			if(color[0]==x.getb()&&color[1]==x.getg()&&color[2]==x.getr()){
-				color[3]=0;
-			}
-			out.at<Vec4b>(Point(xx,yy))=color;
-		}
-	}
-	return;
-}
-
-//開檔並去除特定顏色
-void work_kill(char* input_image_name, char* output_image_name, rgb_num x){
-	Mat img = imread(input_image_name, -1);
-	Mat mat(img.rows, img.cols, CV_8UC4);
-	killcolor(img, mat, x);
-	imwrite(output_image_name, mat);
-	return;
-}
 
 //填滿特定顏色外的顏色
 //leave don't want color

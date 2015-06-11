@@ -19,47 +19,40 @@ class CMat{
 		CMat& operator=(const CMat& rhs);
 		~CMat();
 
-		void set_in_file_path(string _string);
-		void set_out_file_path(string _string);
+		CMat& set_in_file_path(string _string);
+		CMat& set_out_file_path(string _string);
 
 		bool empty() const ;
 		void clear();
 		
 		int channels();
-		void change_channels(int from, int to);
+		CMat& change_channels(const int from, const int to);
 
-		void open();
-//		void open8();
-//		void open24();
-		void open32();
+		CMat& open(const int type = 32);
 
-		void save();
-//		void save8();
-//		void save24();
-//		void save32();
+		CMat& save();
 		
 		void close();
 		
-		void guass();
-//		void guass_1();
-//		void guass_2();
-//		void guass_3();
+		CMat& guass();
 
-		void soble();
-//		void soble_1();
-//		void soble_2();
-//		void soble_3();
+		CMat& soble();
 
-		void black_white(int threshold);
-		void lonely(int white, int black);
+		CMat& black_white(const int threshold);
+		CMat& lonely(const int white, const int black);
 		
 		vector<pair<int, int> > flood(vector<pair<int, int> > source);
 		
-		void kill_pos_color(vector<pair<int, int> > pos);	//col, row
+		CMat& kill_pos_color(vector<pair<int, int> > pos);	//col, row
 
-		void process();
+		CMat& print();
 
-		void print();
+		string& get_in_file_path(){
+			return in_file_path;
+		}
+		string& get_out_file_path(){
+			return out_file_path;
+		}
 };
 
 #endif
