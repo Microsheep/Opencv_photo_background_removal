@@ -38,6 +38,8 @@ class CMat{
 
 		CMat& soble();
 
+		CMat& cvt_color();
+
 		CMat& black_white(const int threshold);
 		CMat& lonely(const int white, const int black);
 		

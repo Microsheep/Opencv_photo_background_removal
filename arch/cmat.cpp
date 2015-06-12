@@ -9,7 +9,7 @@ CMat::CMat(const CMat& rhs){
 	(*this) = rhs;
 }
 CMat& CMat::operator=(const CMat& rhs){
-	pic = rhs.pic;
+	rhs.pic.copyTo(pic);
 	in_file_path = rhs.in_file_path;
 	out_file_path = rhs.out_file_path;
 	return (*this);
@@ -39,7 +39,8 @@ int CMat::channels(){
 }
 CMat& CMat::change_channels(const int from, const int to){
 	if(from == 24 && to == 32){
-		Mat tmp(pic);
+		Mat tmp;
+		pic.copyTo(tmp);
 		pic = Mat(tmp.rows, tmp.cols, CV_8UC4);
 		for(int y = 0 ; y < tmp.rows ; y++){
 			for(int x = 0 ; x < tmp.cols ; x++){
@@ -52,11 +53,11 @@ CMat& CMat::change_channels(const int from, const int to){
 				pic.at<Vec4b>(Point(x, y)) = transcolor;
 			}
 		}
+		tmp.release();
 	}
 	return (*this);
 }
 CMat& CMat::open(const int type){
-	cout << "here" << endl;
 	pic = imread(in_file_path.c_str(), -1);
 	change_channels(channels() * 8, type);
 	return (*this);
@@ -71,7 +72,8 @@ CMat& CMat::guass(){
 }
 
 CMat& CMat::soble(){
-	Mat src_gray(pic);
+	Mat src_gray;
+	pic.copyTo(src_gray);
 	pic.release();
 	int scale = 1,delta = 0,ddepth = CV_16S;
 	Mat grad_x, grad_y;
@@ -84,6 +86,11 @@ CMat& CMat::soble(){
 	src_gray.release();
 	grad_x.release(), grad_y.release();
 	abs_grad_x.release(), abs_grad_y.release();
+	return (*this);
+}
+
+CMat& CMat::cvt_color(){
+	cvtColor(pic, pic, CV_RGB2GRAY);
 	return (*this);
 }
 
@@ -113,20 +120,7 @@ CMat& CMat::lonely(const int white, const int black){
 }
 
 vector<pair<int, int> > CMat::flood(vector<pair<int, int> > source){
-}
-
-CMat& CMat::kill_pos_color(vector<pair<int, int> > pos){	//col, row
-	return (*this);
-}
-
-CMat& CMat::print(){
-	cout << pic << endl;
-	return (*this);
-}
-/*
-vector<pair<int, int> > CMat::flood(vector<pair<int, int> > source){
-	bool v[out.cols][out.rows];
-	cout << "OK" << endl;
+	bool v[pic.cols][pic.rows];
 	memset(v, 0, sizeof(v));
 	queue<pair<int, int> > Queue;
 	for(int i = 0 ; i < (int)source.size() ; i++){
@@ -141,53 +135,31 @@ vector<pair<int, int> > CMat::flood(vector<pair<int, int> > source){
 			pair<int, int> tmp = now;
 			tmp.first += d[i][0];
 			tmp.second += d[i][1];
-			if(tmp.first < 0 || tmp.first >= out.cols || tmp.second < 0 || tmp.second >= out.rows)
+			if(tmp.first < 0 || tmp.first >= pic.cols || tmp.second < 0 || tmp.second >= pic.rows)
 				continue;
 			if(v[tmp.first][tmp.second] == 1)
 				continue;
-			v[tmp.first][tmp.second] = 1;
-			Queue.push(tmp);
+			if(pic.at<uchar>(Point(tmp.first, tmp.second)) == 0){
+				v[tmp.first][tmp.second] = 1;
+				Queue.push(tmp);
+			}
 		}
 	}
 	vector<pair<int, int> > re;
-	for(int i = 0 ; i < out.cols ; i++)
-		for(int j = 0 ; j < out.rows ; j++)
+	for(int i = 0 ; i < pic.cols ; i++)
+		for(int j = 0 ; j < pic.rows ; j++)
 			if(v[i][j])
 				re.push_back(pair<int, int>(i, j));
 	return re;
 }
-// kill color 
-void CMat::kill_pos_color(vector<pair<int, int> > pos){
-	for(int i = 0 ; i < (int)pos.size() ; i++){
+
+CMat& CMat::kill_pos_color(vector<pair<int, int> > pos){	//col, row
+	for(int i = 0 ; i < (int)pos.size() ; i++)
 		pic.at<Vec4b>(Point(pos[i].first,pos[i].second))[3] = 0;
-	}
+	return (*this);
 }
-void CMat::process(){
-	open32();
 
-	guass();
-	cvtColor(pic, pic, CV_RGB2GRAY);
-	soble();
-	guass();
-
-	black_white(20);
-	lonely(6, 20);
-	
-	vector<pair<int, int> > source;
-	for(int i = 0 ; i < pic.rows ; i++)
-		for(int j = 0 ; j < 20 ; j++)
-			source.push_back(pair<int, int>(j, i));
-	kill_pos_color(source);
-//	for(int i = 0 ; i < pic.rows ; i++)
-//		source.push_back(pair<int,int>(0,0));
-//	vector<pair<int, int> > end = flood(source);
-//	cout << end.size() << endl;
-//	kill_pos_color(flood(source));
-//
-	save();
-	close();
-}
-void CMat::print(){
+CMat& CMat::print(){
 	cout << pic << endl;
+	return (*this);
 }
-*/
