@@ -24,6 +24,11 @@ class CMat{
 
 		bool empty() const ;
 		void clear();
+
+		int get_cols();
+		int get_rows();
+		Vec3b get_3b_at(int, int);
+		Vec4b get_4b_at(int, int);
 		
 		int channels();
 		CMat& change_channels(const int from, const int to);
@@ -38,7 +43,7 @@ class CMat{
 
 		CMat& soble();
 
-		CMat& cvt_color();
+		CMat& cvt_color(Vec3b color=Vec3b(0,0,0));
 
 		CMat& black_white(const int threshold);
 		CMat& lonely(const int white, const int black);

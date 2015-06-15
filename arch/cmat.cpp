@@ -33,6 +33,19 @@ void CMat::clear(){
 	if(!pic.empty())
 		pic.release();
 }
+int CMat::get_cols(){
+	return pic.cols;
+}
+int CMat::get_rows(){
+	return pic.rows;
+}
+
+Vec3b CMat::get_3b_at(int col, int row){
+	return pic.at<Vec3b>(Point(col, row));
+}
+Vec4b CMat::get_4b_at(int col, int row){
+	return pic.at<Vec4b>(Point(col, row));
+}
 
 int CMat::channels(){
 	return pic.channels();
@@ -89,8 +102,18 @@ CMat& CMat::soble(){
 	return (*this);
 }
 
-CMat& CMat::cvt_color(){
-	cvtColor(pic, pic, CV_RGB2GRAY);
+CMat& CMat::cvt_color(Vec3b color){
+	/*
+	Mat tmp;
+	pic.copyTo(tmp);
+	pic = Mat(tmp.rows, tmp.cols, CV_8UC4);
+	for(int y = 0 ; y < pic.rows ; y++)
+		for(int x = 0 ; x < pic.cols ; x++){
+			Vec3b now_color = tmp.at<Vec3b>(Point(x, y));
+			pic.at<uchar>(Point(x,y)) = (abs(now_color[0] - color[0]) + abs(now_color[1] - color[1]) + abs(now_color[2] - color[2])) / 3;
+		}
+	*/
+	cvtColor(pic, pic, CV_RGB2GRAY );
 	return (*this);
 }
 
