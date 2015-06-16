@@ -174,9 +174,15 @@ vector<pair<int, int> > CMat::flood(vector<pair<int, int> > source){
 	return re;
 }
 
-CMat& CMat::kill_pos_color(vector<pair<int, int> > pos){	//col, row
-	for(int i = 0 ; i < (int)pos.size() ; i++)
-		pic.at<Vec4b>(Point(pos[i].first,pos[i].second))[3] = 0;
+CMat& CMat::kill_pos_color(vector<pair<int, int> > pos, int x){	//col, row
+	for(int i = 0 ; i < (int)pos.size() ; i++){
+		for(int u = -x ; u <= x ; u++)
+			for(int v = -abs(u-x) ; v <= abs(u-x) ; v++){
+				int col = min(max(pos[i].first - u, 0), pic.cols - 1);
+				int row = min(max(pos[i].second  - v, 0), pic.rows - 1);
+				pic.at<Vec4b>(Point(col, row))[3] = 0;
+			}
+	}
 	return (*this);
 }
 

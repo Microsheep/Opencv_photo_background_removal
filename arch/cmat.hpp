@@ -50,7 +50,7 @@ class CMat{
 		
 		vector<pair<int, int> > flood(vector<pair<int, int> > source);
 		
-		CMat& kill_pos_color(vector<pair<int, int> > pos);	//col, row
+		CMat& kill_pos_color(vector<pair<int, int> > pos, int x = 1);	//col, row
 
 		CMat& print();
 
