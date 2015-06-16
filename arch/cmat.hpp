@@ -43,7 +43,7 @@ class CMat{
 
 		CMat& soble();
 
-		CMat& cvt_color(Vec3b color=Vec3b(0,0,0));
+		CMat& cvt_color(Vec3b color=Vec3b(255,255,255));
 
 		CMat& black_white(const int threshold);
 		CMat& lonely(const int white, const int black);

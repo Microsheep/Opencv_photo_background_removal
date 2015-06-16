@@ -103,17 +103,15 @@ CMat& CMat::soble(){
 }
 
 CMat& CMat::cvt_color(Vec3b color){
-	/*
 	Mat tmp;
 	pic.copyTo(tmp);
-	pic = Mat(tmp.rows, tmp.cols, CV_8UC4);
+	pic = Mat(tmp.rows, tmp.cols, CV_8UC1);
 	for(int y = 0 ; y < pic.rows ; y++)
 		for(int x = 0 ; x < pic.cols ; x++){
-			Vec3b now_color = tmp.at<Vec3b>(Point(x, y));
+			Vec4b now_color = tmp.at<Vec4b>(Point(x, y));
 			pic.at<uchar>(Point(x,y)) = (abs(now_color[0] - color[0]) + abs(now_color[1] - color[1]) + abs(now_color[2] - color[2])) / 3;
 		}
-	*/
-	cvtColor(pic, pic, CV_RGB2GRAY );
+	//cvtColor(pic, pic, CV_RGB2GRAY );
 	return (*this);
 }
 

@@ -96,7 +96,7 @@ int main(int argc, char **argv){
 
 	CMat pic;
 	CMat mask = pic.set_in_file_path( Default.INPUT() ).set_out_file_path( Default.OUTPUT() ).open();
-	mask.guass().cvt_color().soble().guass().black_white( Default.BLACK_WHITE() );
+	mask.guass().cvt_color().set_out_file_path("temp.png").save().soble().guass().black_white( Default.BLACK_WHITE() );
 	for(int i = 0 ; i < Default.LONELY_TIMES() ; i++){
 		mask.lonely( Default.LONELY_START() + i, Default.LONELY_END() - i);
 	}
