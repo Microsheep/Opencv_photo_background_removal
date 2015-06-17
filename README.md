@@ -1,14 +1,11 @@
 <h1>Background removal using opencv.</h1><br>
-
 1. photo: image for testing<br>
 2. bgremove: code for background removal<br>
 (bgremove.out is the executable for linux)<br>
-
 <h3>Background Remove: (-h for help)</h3><br>
 [-i input] [-o output] [-mo mask_output]<br>
 [-l lonely_start lonely_end lonely_times]<br>
 [-bw black_white] [-m margin] [-h | help]<br>
-
 <h3>Default:</h3><br>
 input - in.png<br>
 output - out.png<br>
