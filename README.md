@@ -1,7 +1,7 @@
 <h1>Background removal using opencv.</h1><br>
 1. photo: image for testing<br>
 2. bgremove: code for background removal<br>
-3. demo: demo images for 6-17 version<br>
+3. demo: demo images for 6/17 version<br>
 (bgremove.out is the executable for linux)<br>
 <h3>Background Remove: (-h for help)</h3><br>
 [-i input] [-o output] [-mo mask_output]<br>
