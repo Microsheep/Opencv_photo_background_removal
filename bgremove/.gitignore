@@ -2,5 +2,4 @@ CMakeCache.txt
 CMakeFiles
 cmake_install.cmake
 Makefile
-*.out
 *.swp
