@@ -29,16 +29,16 @@ class CMat{
 		int get_rows();
 		Vec3b get_3b_at(int, int);
 		Vec4b get_4b_at(int, int);
-		
+
 		int channels();
 		CMat& change_channels(const int from, const int to);
 
 		CMat& open(const int type = 32);
 
 		CMat& save();
-		
+
 		void close();
-		
+
 		CMat& guass();
 
 		CMat& soble();
@@ -47,10 +47,10 @@ class CMat{
 
 		CMat& black_white(const int threshold);
 		CMat& lonely(const int white, const int black);
-		
+
 		vector<pair<int, int> > flood(vector<pair<int, int> > source);
-		
-		CMat& kill_pos_color(vector<pair<int, int> > pos);	//col, row
+
+		CMat& kill_pos_color(vector<pair<int, int> > pos, int x = 1);	//col, row
 
 		CMat& print();
 
