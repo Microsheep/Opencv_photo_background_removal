@@ -16,6 +16,8 @@ void print(value &v){
 }
 struct DEFAULT{
 	value m_default;
+	vector<pair<int, int> > source;
+
 	DEFAULT(){
 		map<string, value> empty_value_map;
 		m_default = value(empty_value_map);
@@ -38,6 +40,10 @@ struct DEFAULT{
 		m_default.get_map()["black_white"] = value(int64_t(20));
 
 		m_default.get_map()["margin"] = value(int64_t(2));
+
+        m_default.get_map()["total_sources"] = value(int64_t(1));
+
+        source.push_back(pair<int,int>(0,0));
 	}
 	string& INPUT(){
 		return m_default.get_map()["file_in"].get_string();
@@ -63,6 +69,9 @@ struct DEFAULT{
 	int64_t& MARGIN(){
 		return m_default.get_map()["margin"].get_integer();
 	}
+    int64_t& TOTAL_SOURCES(){
+        return m_default.get_map()["total_sources"].get_integer();
+    }
 };
 int string2int(string str){
 	stringstream ss(str);
@@ -71,8 +80,9 @@ int string2int(string str){
 	return re;
 }
 int main(int argc, char **argv){
-
+    
 	DEFAULT Default;
+    
 	for(int i = 1 ; i < argc ; i++){
 		if(string(argv[i]) == string("-i")) {
 			Default.INPUT() = string(argv[i+1]);
@@ -94,10 +104,23 @@ int main(int argc, char **argv){
 		} else if (string(argv[i]) == string("-m")) {
 			Default.MARGIN() = string2int(string(argv[i+1]));
 			++i;
-		} else if (string(argv[i]) == string("help") || string(argv[i]) == string("-h")) {
+		} else if (string(argv[i]) == string("-s")) { 
+            Default.TOTAL_SOURCES() = string2int(string(argv[i+1]));
+            ++i;
+            Default.source.pop_back();
+            for(int a=0;a<Default.TOTAL_SOURCES();a++){
+                ++i;
+                string input_point = string(argv[i]);
+                int sep=input_point.find(",");
+                int x=string2int(input_point.substr(0,sep));
+                int y=string2int(input_point.substr(sep+1,input_point.length()-1));
+                Default.source.push_back(pair<int,int>(x,y));
+            }
+        } else if (string(argv[i]) == string("help") || string(argv[i]) == string("-h")) {
 			cout << "[Help]" << endl;
 			cout << "[-i input] [-o output] [-mo mask_output]" << endl;
 			cout << "[-l lonely_start lonely_end lonely_times]" << endl;
+            cout << "[-s $total_sources \"a1,b1\" \"a2,b2\" source]" << endl;
 			cout << "[-bw black_white] [-m margin] [-h | help]" << endl;
 			return 0;
 		} else {
@@ -113,9 +136,6 @@ int main(int argc, char **argv){
 		mask.lonely( Default.LONELY_START() + i, Default.LONELY_END() - i);
 	}
 	mask.set_out_file_path( Default.MASK_OUTPUT() ).save();
-
-	vector<pair<int, int> > source;
-	source.push_back(pair<int, int>(0,0));
-	pic.kill_pos_color(mask.flood(source), Default.MARGIN()).save();
+	pic.kill_pos_color(mask.flood(Default.source), Default.MARGIN()).save();
 	return 0;
 }
