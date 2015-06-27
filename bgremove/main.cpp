@@ -120,7 +120,7 @@ int main(int argc, char **argv){
             cout << "[Help]" << endl;
             cout << "[-i input] [-o output] [-mo mask_output]" << endl;
             cout << "[-l lonely_start lonely_end lonely_times]" << endl;
-            cout << "[-s $total_sources \"a1,b1\" \"a2,b2\" source]" << endl;
+            cout << "[-s $total_sources \"a1,b1\" \"a2,b2\" ... source]" << endl;
             cout << "[-bw black_white] [-m margin] [-h | help]" << endl;
             return 0;
         } else {

@@ -6,6 +6,7 @@
 <h3>Background Remove: (-h for help)</h3><br>
 [-i input] [-o output] [-mo mask_output]<br>
 [-l lonely_start lonely_end lonely_times]<br>
+[-s $total_sources "a1,b1" "a2,b2" ... source]<br>
 [-bw black_white] [-m margin] [-h | help]<br>
 <h3>Default:</h3><br>
 input - in.png<br>
@@ -16,3 +17,6 @@ lonely_start = 6 (less than 6/25 is black)<br>
 lonely_end = 20 (greater than 20/25 is white)<br>
 lonely_times = 1 (the times lonely kill is executed)<br>
 margin = 2 (the radius killed when flood)<br>
+total_sources = 1 (the number of sources to flood)<br>
+source = (0,0)<br>
+
